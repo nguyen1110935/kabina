@@ -126,6 +126,4 @@ public class User {
 	public void setBusiness(Unit business) {
 		this.business = business;
 	}
-
-	
 }

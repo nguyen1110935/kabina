@@ -16,7 +16,10 @@ public class Unit {
 	
 	@Column(name = "unitName")
 	private String unitName;
-
+	
+	@Column(name = "leaderId")
+	private long leaderId;
+	
 	public long getUnitId() {
 		return unitId;
 	}
@@ -31,5 +34,13 @@ public class Unit {
 
 	public void setUnitName(String unitName) {
 		this.unitName = unitName;
+	}
+
+	public long getLeaderId() {
+		return leaderId;
+	}
+
+	public void setLeaderId(long leaderId) {
+		this.leaderId = leaderId;
 	}
 }
