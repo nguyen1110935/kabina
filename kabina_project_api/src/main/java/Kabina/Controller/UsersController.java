@@ -10,7 +10,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import Kabina.Model.Booking;
+import Kabina.Model.Shelf;
 import Kabina.Model.User;
+import Kabina.Repository.BookingRepository;
+import Kabina.Repository.BookingtempRepository;
+import Kabina.Repository.FloorRepository;
+import Kabina.Repository.ShelfRepository;
+import Kabina.Repository.UnitRepository;
 import Kabina.Service.impl.UserServiceImpl;
 import Kabina.Validator.UsersValidator;
 import java.util.List;
@@ -20,6 +27,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/control")
 public class UsersController {
 
+	@Autowired
+	ShelfRepository shelfRepository;
+	
+	@Autowired
+	BookingRepository bookingRepository;
+	
+	@Autowired
+	BookingtempRepository bookingtempRepository;
+	
+	@Autowired
+	FloorRepository floorRepository;
+	
+	@Autowired
+	UnitRepository unitRepository;
+	
 	@Autowired
 	private UserServiceImpl usersService;
 
@@ -68,5 +90,10 @@ public class UsersController {
 	@RequestMapping(value = "/del/{Id}", method = RequestMethod.GET)
 	public void deleteUser(@PathVariable Integer Id) {
 		usersService.deleteUser(Id);
+	}
+	
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public List<Booking> get() {
+		return (List<Booking>) bookingRepository.findAll();
 	}
 }

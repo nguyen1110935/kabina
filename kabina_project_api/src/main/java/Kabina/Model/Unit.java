@@ -1,11 +1,22 @@
 package Kabina.Model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "Unit")
@@ -20,6 +31,23 @@ public class Unit {
 	@Column(name = "leaderId")
 	private long leaderId;
 	
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(
+			  name = "floor_unit", 
+			  joinColumns = @JoinColumn(name = "unitId"), 
+			  inverseJoinColumns = @JoinColumn(name = "floorId"))
+	Set<Floor> floor;
+	
+	
+	public Set<Floor> getFloor() {
+		return floor;
+	}
+
+	public void setFloor(Set<Floor> floor) {
+		this.floor = floor;
+	}
+
 	public long getUnitId() {
 		return unitId;
 	}
