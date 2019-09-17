@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
-Built-By: truongdangkhoa
-Build-Jdk: 11.0.2
+Built-By: minhhieubuinguyen
+Build-Jdk: 12.0.1
 Implementation-Title: Kabina
 Implementation-Version: 0.0.1-SNAPSHOT
 Implementation-Vendor-Id: Kabina
