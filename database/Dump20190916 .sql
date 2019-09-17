@@ -218,7 +218,7 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `userId` int(11) NOT NULL AUTO_INCREMENT,
   `userName` varchar(30) NOT NULL,
-  `password` varchar(16) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
   `roleId` int(11) DEFAULT NULL,
   `unitId` int(11) DEFAULT NULL,
   `fullname` varchar(50) DEFAULT NULL,
