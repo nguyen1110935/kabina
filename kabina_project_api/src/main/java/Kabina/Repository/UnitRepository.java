@@ -12,4 +12,5 @@ import Kabina.Model.Unit;
 public interface UnitRepository extends CrudRepository<Unit, String>, JpaRepository<Unit, String>{
 
 	List<Unit> findAll();
+	Unit findByUnitId(long unitId);
 }

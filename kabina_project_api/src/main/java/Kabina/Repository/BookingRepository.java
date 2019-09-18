@@ -13,6 +13,7 @@ import Kabina.Model.Booking;
 public interface BookingRepository extends CrudRepository<Booking, String>, JpaRepository<Booking, String> {
 	List<Booking> findAll();
 	
+	//get booking in booking table if the booking still unexpired
 	@Query(
 			value = "select * from " + 
 					"( select * from booking where StartDate BETWEEN (SELECT DATE_ADD(CURDATE(), INTERVAL - WEEKDAY(CURDATE()) DAY)) " + 
@@ -22,5 +23,23 @@ public interface BookingRepository extends CrudRepository<Booking, String>, JpaR
 			nativeQuery = true
 		)
 	List<Booking> findAllBookingFromFloor(int floor);
+	
+	//get booking in booking table with the enddate before today, default it's history
+	@Query(
+			value = "Select* From Booking where (UserId= ?1 and EndDate <= CURDATE()) ORDER BY StartDate DESC ",
+			nativeQuery = true
+		)
+	List<Booking> findUserBookingHistory(int userId);
+
+	//get booking history of the system, use in admin screen
+	@Query(
+			value = "Select* From Booking where EndDate <= CURDATE() ORDER BY StartDate DESC",
+			nativeQuery = true
+		)
+	List<Booking> findAllBookingHistory(int userId);
+	
+	//approve edit 
+	
+	
 
 }

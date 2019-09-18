@@ -18,6 +18,7 @@ import Kabina.Repository.BookingtempRepository;
 import Kabina.Repository.FloorRepository;
 import Kabina.Repository.ShelfRepository;
 import Kabina.Repository.UnitRepository;
+import Kabina.Repository.UsersRepository;
 import Kabina.Service.impl.UserServiceImpl;
 import Kabina.Validator.UsersValidator;
 import java.util.List;
@@ -47,6 +48,9 @@ public class UsersController {
 
 	@Autowired
 	private UsersValidator usersValidator;
+	
+	@Autowired
+	private UsersRepository usersRepository;
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -95,5 +99,10 @@ public class UsersController {
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public List<Booking> get() {
 		return (List<Booking>) bookingRepository.findAll();
+	}
+	
+	@RequestMapping(value = "/getUsers/{userName}", method = RequestMethod.GET)
+	public User getUserById(@PathVariable String userName) {
+		return usersRepository.findByUserName(userName);
 	}
 }

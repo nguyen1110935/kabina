@@ -10,5 +10,5 @@ import Kabina.Model.User;
 public interface UsersRepository extends CrudRepository<User, String>, JpaRepository<User, String> {
 	User findByUserName(String userName);
 	User findByUserId(Integer userId);
-	User deleteByUserId(Integer userId);
+	User deleteByUserId(long userId);
 }
