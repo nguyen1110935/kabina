@@ -15,9 +15,11 @@ import Kabina.Model.Booking;
 import Kabina.Model.Floor;
 import Kabina.Model.Shelf;
 import Kabina.Model.Unit;
+import Kabina.Model.User;
 import Kabina.Repository.BookingRepository;
 import Kabina.Repository.FloorRepository;
 import Kabina.Repository.UnitRepository;
+import Kabina.Repository.UsersRepository;
 import Kabina.Service.BookingService;
 
 @RestController
@@ -36,6 +38,9 @@ public class Admin_User_Controller {
 	@Autowired
 	BookingRepository bookingRepository;
 	
+	@Autowired
+	UsersRepository usersRepository;
+	
 	@RequestMapping(value = "/findAllBookingDetailFromFloor", method = RequestMethod.GET)
 	public Map<Integer, Object> findAllBookingDetailFromFloor(){
 		return bookingService.getShelfDetailAllFloor();
@@ -46,6 +51,14 @@ public class Admin_User_Controller {
 		return bookingService.getShelfDetailFromUnit(unitId);
 	}
 	
+	@RequestMapping(value = "/getMapShelfFromUnit", method = RequestMethod.GET)
+	public Map<Long, Object> getMapShelfFromUnit(@RequestParam int unitId){
+		return bookingService.getMapShelfFromUnit(unitId);
+	}
+	@RequestMapping(value = "/getMapShelfAdmin", method = RequestMethod.GET)
+	public Map<Long, Object> getMapShelfAdmin(){
+		return bookingService.getMapShelfAdmin();
+	}
 	@RequestMapping(value = "/unitne", method = RequestMethod.GET)
 	public Unit unit(@RequestParam int unitId){
 		return unitRepository.findByUnitId(unitId);
@@ -61,4 +74,11 @@ public class Admin_User_Controller {
 		int userId=1;
 		return bookingRepository.findUserBookingHistory(1);
 	}
+	
+	@RequestMapping(value = "/testUser", method = RequestMethod.GET)
+	public User user(){
+		long userId=1;
+		return usersRepository.findByUserId(userId);
+	}
+	
 }

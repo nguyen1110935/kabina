@@ -1,8 +1,10 @@
 package Kabina.Service;
 
 import java.util.List;
+import java.util.Map;
 
 import Kabina.Model.Shelf;
+
 
 public interface ShelfService {
 	List<Shelf> findAll();
@@ -14,4 +16,8 @@ public interface ShelfService {
 	List<Shelf> findFullShelfOfThisWeek(int floor);
 	
 	List<Shelf> findFreeShelfAprroved(int floor);
+
+	Map<String, Object>  findShelfAvailableInRange(String startDate, String endDate, int unitId);
+
+	Map<String, Object> findShelfAvailableAdmin(String startDate, String endDate);
 }

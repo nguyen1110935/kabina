@@ -14,17 +14,31 @@ import Kabina.Model.Bookingtemp;
 public interface BookingtempRepository extends CrudRepository<Bookingtemp, String>, JpaRepository<Bookingtemp, String> {
 	List<Bookingtemp> findAll();
 	
+	@Query(
+			value = "Select * From Bookingtemp where userId=?1",
+			nativeQuery = true
+		)
+	List<Bookingtemp> findByUserId(long userId);
+	
 	//get NEW booking unapprove 
 	@Query(
-			value = "Select * From BookListTemp where BookListId not IN (SELECT BookListId FROM booklist)",
+			value = "Select * From Bookingtemp where BookListId not IN (SELECT BookListId FROM booklist)",
 			nativeQuery = true
 		)
 	List<Bookingtemp> findAllNewBookingUnapprove();
 	
 	//get EDIT  unapprove 
 	@Query(
-			value = "Select * From BookListTemp where BookListId IN (SELECT BookListId FROM booklist)",
+			value = "Select * From Bookingtemp where BookListId IN (SELECT BookListId FROM booklist)",
 			nativeQuery = true
 		)
 	List<Bookingtemp> findAllEditUnapprove();
+	
+	@Query(
+			value = "REPLACE into BookingTemp (bookingId, UserId, ShelfId, StartDate, EndDate, Expire) value (?1,?2,?3,?4,?5,false)",
+					nativeQuery = true
+			)
+	Integer replaceBookingtemp(int bookingId, Long userId, String shelfId, String startDate, String endDate);
+	
+	
 }

@@ -1,5 +1,8 @@
 package Kabina.Service.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,6 +57,22 @@ public class UserServiceImpl implements UserService {
 			usersRepository.save(user);
 		}
 		return user;
+	}
+	
+	@Override
+	public Map<String, String> getUserProfile(long userId) {
+		User user=usersRepository.findByUserId(userId);
+		long leader=user.getBusiness().getLeaderId();
+		User leaderUser=usersRepository.findByUserId(leader);
+		Map<String, String> map=new HashMap<String, String>();
+		map.put("username",user.getUserName());
+		map.put("email",user.getEmail());
+		map.put("shortName",user.getShortName());
+		map.put("fullName",user.getFullName());
+		map.put("businessUnit",user.getBusiness().getUnitName());
+		map.put("businessUnitmanager",leaderUser.getFullName());
+		map.put("phone",user.getPhone());
+		return map;
 	}
 
 }

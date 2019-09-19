@@ -2,6 +2,8 @@ package Kabina.Repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -29,16 +31,32 @@ public interface BookingRepository extends CrudRepository<Booking, String>, JpaR
 			value = "Select* From Booking where (UserId= ?1 and EndDate <= CURDATE()) ORDER BY StartDate DESC ",
 			nativeQuery = true
 		)
-	List<Booking> findUserBookingHistory(int userId);
+	List<Booking> findUserBookingHistory(long userId);
 
 	//get booking history of the system, use in admin screen
 	@Query(
 			value = "Select* From Booking where EndDate <= CURDATE() ORDER BY StartDate DESC",
 			nativeQuery = true
 		)
-	List<Booking> findAllBookingHistory(int userId);
+	List<Booking> findAllBookingHistory(long userId);
 	
-	//approve edit 
+	//get current max id from table booking and booking temp
+	@Query(
+		value = "select if(t.maxT>b.maxB, t.maxT,b.maxB) as id " + 
+				"from " + 
+				"(select IF((select COUNT(*) FROM bookingtemp)>0 ,Max(BookingId),0) as maxT from bookingtemp) as t, " + 
+				"(select max(bookingId) as maxB from booking) as b",
+				nativeQuery = true
+		)
+	long findMaxId();
+	
+	//Check user book in new range or not, for user cannot book 2 shelf in 1 day, return number booking user booking range input
+	@Query(
+			value = "select Count(*) from (select * from booking UNION select * from bookingtemp) as b where b.USERID=?1 " + 
+					"and (b.StartDate between ?2 and ?3 or b.EndDate between ?2 and ?3 or ?2 between b.startdate and end date or ?3 between between b.startdate and enddate)",
+					nativeQuery = true
+			)
+	int  checkUserBook(Long userId, String startDate, String endDate);
 	
 	
 

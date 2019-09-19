@@ -22,6 +22,8 @@ import Kabina.Repository.UsersRepository;
 import Kabina.Service.impl.UserServiceImpl;
 import Kabina.Validator.UsersValidator;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -104,5 +106,10 @@ public class UsersController {
 	@RequestMapping(value = "/getUsers/{userName}", method = RequestMethod.GET)
 	public User getUserById(@PathVariable String userName) {
 		return usersRepository.findByUserName(userName);
+	}
+	
+	@RequestMapping(value = "/usersProfile/{userId}", method = RequestMethod.GET)
+	public Map<String, String> getUserProfile(@PathVariable long userId) {
+		return usersService.getUserProfile(userId);
 	}
 }
