@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
 		return usersRepository.findAll();
 	}
 
-	public void deleteUser(Integer Id) {
+	public void deleteUser(Long Id) {
 		usersRepository.deleteByUserId(Id);;
 	}
 
@@ -40,19 +40,23 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		System.out.println(usr.getUserName() + " from url");
 		System.out.println(usr.getPhone() + " from url");
-		User user = usersRepository.findByUserId((int) usr.getUserId());
+		User user = usersRepository.findByUserId(usr.getUserId());
 		if (user != null) {
 			System.out.println(user.getUserName() + " from database");
 			System.out.println(user.getPhone() + " from database");
 			user.setEmail(usr.getEmail());
 			user.setPhone(usr.getPhone());
-			user.setPassword(usr.getPassword());
+			if (usr.getPassword() != null)
+				user.setPassword(usr.getPassword());
 			user.setShortName(usr.getShortName());
 			user.setUserName(usr.getUserName());
+			user.setBusiness(usr.getBusiness());
+			user.setRole(usr.getRole());
 
 			System.out.println("SAVE TO DATABASE");
 			usersRepository.save(user);
 		}
 		return user;
 	}
+
 }

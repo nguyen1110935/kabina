@@ -16,7 +16,7 @@ import javax.validation.constraints.NotBlank;
 public class User {
 	@Id
 	@GeneratedValue(generator = "userId", strategy = GenerationType.IDENTITY)
-	private long userId;
+	private Long userId;
 	
 	@NotBlank
 	@Column(name = "userName")
@@ -38,11 +38,11 @@ public class User {
 	@Column(name = "email")
 	private String email;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="roleId")
 	private Role role;
 	
-	@ManyToOne (cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="unitId")
 	private Unit business;
 	
@@ -55,11 +55,11 @@ public class User {
 		this.shortName = userShortName;
 	}
 
-	public long getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(long userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 

@@ -6,6 +6,6 @@ public interface UserService {
 	Iterable<User> findAll();
 	public User addUser(User usr);
 	public User updateUser(User usr);
-	public void deleteUser (Integer Id);
+	public void deleteUser (Long Id);
 	int checkUserExist(String userName);
 }

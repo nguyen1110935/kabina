@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Table(name = "Shelf")
 public class Shelf {
 	@Id
-	private String shelfId;
+	private Long shelfId;
 	
 	@ManyToOne
 	@JoinColumn(name="floor")
@@ -20,9 +20,9 @@ public class Shelf {
 
 	
 	public String getShelfId() {
-		return shelfId;
+		return Long.toString(shelfId);
 	}
-	public void setShelfId(String shelfId) {
+	public void setShelfId(Long shelfId) {
 		this.shelfId = shelfId;
 	}
 	public Floor getFloor() {
@@ -34,7 +34,7 @@ public class Shelf {
 	public Shelf() {
 		
 	}
-	public Shelf(String shelfId, Floor floor) {
+	public Shelf(Long shelfId, Floor floor) {
 		super();
 		this.shelfId = shelfId;
 		this.floor = floor;

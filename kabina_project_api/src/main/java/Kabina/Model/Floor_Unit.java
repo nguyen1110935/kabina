@@ -1,5 +1,6 @@
 package Kabina.Model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -14,12 +15,12 @@ public class Floor_Unit {
 	private long id;
 	
 	
-	@ManyToOne
+	@ManyToOne()
 	@MapsId("floorId")
 	@JoinColumn(name = "floorId")
 	private Floor floor;
 	
-	@ManyToOne
+	@ManyToOne()
 	@MapsId("unitId")
 	@JoinColumn(name = "unitId")
 	private Unit unit;

@@ -3,6 +3,7 @@ package Kabina.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import Kabina.Repository.BookingtempRepository;
 import Kabina.Repository.FloorRepository;
 import Kabina.Repository.ShelfRepository;
 import Kabina.Repository.UnitRepository;
+import Kabina.Repository.UsersRepository;
 import Kabina.Service.impl.UserServiceImpl;
 import Kabina.Validator.UsersValidator;
 import java.util.List;
@@ -47,6 +49,9 @@ public class UsersController {
 
 	@Autowired
 	private UsersValidator usersValidator;
+	
+	@Autowired
+	private UsersRepository usersRepository;
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -86,14 +91,19 @@ public class UsersController {
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
-	
-	@RequestMapping(value = "/del/{Id}", method = RequestMethod.GET)
-	public void deleteUser(@PathVariable Integer Id) {
+	@Transactional
+	@RequestMapping(value = "/del/{Id}", method = RequestMethod.DELETE)
+	public void deleteUser(@PathVariable Long Id) {
 		usersService.deleteUser(Id);
 	}
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public List<Booking> get() {
 		return (List<Booking>) bookingRepository.findAll();
+	}
+	
+	@RequestMapping(value = "/getUsers/{userName}", method = RequestMethod.GET)
+	public User getUserById(@PathVariable String userName) {
+		return usersRepository.findByUserName(userName);
 	}
 }

@@ -12,4 +12,6 @@ public interface ShelfService {
 	List<Shelf> findUsedShelfOfUserRange(String start, String end, int floor);
 	
 	List<Shelf> findFullShelfOfThisWeek(int floor);
+	
+	List<Shelf> findFreeShelfAprroved(int floor);
 }

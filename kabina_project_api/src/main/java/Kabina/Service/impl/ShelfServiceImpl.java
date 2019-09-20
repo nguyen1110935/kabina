@@ -34,6 +34,12 @@ public class ShelfServiceImpl implements ShelfService {
 	@Override
 	public List<Shelf> findFullShelfOfThisWeek(int floor) {
 		return shelfRepository.findFullShelfOfThisWeek(floor);
+	}
+
+	@Override
+	public List<Shelf> findFreeShelfAprroved(int floor) {
+		// TODO Auto-generated method stub
+		return shelfRepository.findFreeShelfAprroved(floor);
 	};
 
 }
