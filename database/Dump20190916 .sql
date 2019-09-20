@@ -35,7 +35,7 @@ CREATE TABLE `booking` (
   KEY `fk_BookingShelf` (`shelfId`) USING BTREE,
   KEY `fk_BookingUser` (`userId`) USING BTREE,
   CONSTRAINT `fk_BookingShelf` FOREIGN KEY (`shelfId`) REFERENCES `shelf` (`shelfId`),
-  CONSTRAINT `fk_BookingUser` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
+  CONSTRAINT `fk_BookingUser` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=533 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -67,7 +67,7 @@ CREATE TABLE `bookingtemp` (
   KEY `fk_BookingTempShelf` (`shelfId`) USING BTREE,
   KEY `fk_BookingTempUser` (`userId`) USING BTREE,
   CONSTRAINT `fk_BookingTempShelf` FOREIGN KEY (`shelfId`) REFERENCES `shelf` (`shelfId`),
-  CONSTRAINT `fk_BookingTempUser` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`)
+  CONSTRAINT `fk_BookingTempUser` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=284 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
