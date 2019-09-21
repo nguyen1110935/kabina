@@ -97,11 +97,12 @@ public class Booking {
 	public void setExpire(long expire) {
 		this.expire = expire;
 	}
-	
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Booking [bookingId=" + bookingId + ", user=" + user + ", shelf=" + shelf + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", expire=" + expire + "]";
+	}
 	
 
 }

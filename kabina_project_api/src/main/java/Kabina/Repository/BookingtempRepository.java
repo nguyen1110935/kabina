@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import Kabina.Model.Bookingtemp;
 
 @Repository
-public interface BookingtempRepository extends CrudRepository<Bookingtemp, String>, JpaRepository<Bookingtemp, String> {
+public interface BookingtempRepository extends CrudRepository<Bookingtemp, Long>, JpaRepository<Bookingtemp, Long> {
 	List<Bookingtemp> findAll();
 	
 	//get NEW booking unapprove 

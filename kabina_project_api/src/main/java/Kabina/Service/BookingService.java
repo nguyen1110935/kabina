@@ -13,4 +13,7 @@ public interface BookingService {
 	Map<Integer, Object> getShelfDetailAllFloor();
 
 	Map<Long, Object> getShelfDetailFromUnit(int unitId);
+	
+	Booking addNewBooking(Booking booking);
+
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import Kabina.Model.Booking;
 
 @Repository
-public interface BookingRepository extends CrudRepository<Booking, String>, JpaRepository<Booking, String> {
+public interface BookingRepository extends CrudRepository<Booking, Long>, JpaRepository<Booking, Long> {
 	List<Booking> findAll();
 	
 	//get booking in booking table if the booking still unexpired

@@ -1,6 +1,7 @@
 package Kabina.Service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,16 @@ public class BookingtempServiceImpl implements BookingtempService {
 		// TODO Auto-generated method stub
 		return bookingtempRepository.findAll();
 	}
+	
+	@Override
+	public void deleteById(Long id) {
+		// TODO Auto-generated method stub
+		bookingtempRepository.deleteById(id);
+	}
 
+	@Override
+	public Optional<Bookingtemp> findById(Long id) {
+		// TODO Auto-generated method stub
+		return bookingtempRepository.findById(id);
+	}
 }
