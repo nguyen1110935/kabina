@@ -1,16 +1,12 @@
 package Kabina.Service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import Kabina.Model.Role;
-
 import Kabina.Model.User;
 import Kabina.Repository.RoleRepository;
 import Kabina.Repository.UsersRepository;
@@ -46,9 +42,9 @@ public class JwtUserDetailsService implements UserDetailsService {
 		
 		Role userRole;
 		if("User".equals(user.getRole()))
-			userRole = roleRepo.findByRoleId((long)2);
+			userRole = roleRepo.findByRoleId(2);
 		else
-			userRole = roleRepo.findByRoleId((long)1);
+			userRole = roleRepo.findByRoleId(1);
 		
 		newUser.setRole(userRole);
 		
