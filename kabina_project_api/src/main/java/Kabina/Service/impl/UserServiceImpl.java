@@ -50,9 +50,11 @@ public class UserServiceImpl implements UserService {
 				user.setPassword(usr.getPassword());
 			user.setShortName(usr.getShortName());
 			user.setUserName(usr.getUserName());
+			user.setFullName(usr.getFullName());
+			user.setEmail(usr.getEmail());
+			user.setPhone(usr.getPhone());
 			user.setBusiness(usr.getBusiness());
 			user.setRole(usr.getRole());
-
 			System.out.println("SAVE TO DATABASE");
 			usersRepository.save(user);
 		}
