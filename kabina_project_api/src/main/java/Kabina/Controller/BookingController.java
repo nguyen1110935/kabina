@@ -45,6 +45,12 @@ public class BookingController {
 		return shelfService.findFullShelfOfThisWeek(9) ;
 	}
 	
+
+	@RequestMapping(value = "/bookingtemp", method = RequestMethod.GET)
+	public List<Bookingtemp> getAllBookingTemp() {
+		return bookingtempService.getAllBookingtemp();
+	}
+	
 	@RequestMapping(value = "/reject/{id}", method = RequestMethod.DELETE)
 	public void rejectBooking(@PathVariable Long id) {
 		bookingtempService.deleteById(id);

@@ -33,4 +33,10 @@ public class BookingtempServiceImpl implements BookingtempService {
 		// TODO Auto-generated method stub
 		return bookingtempRepository.findById(id);
 	}
+
+	@Override
+	public List<Bookingtemp> getAllBookingtemp() {
+		// TODO Auto-generated method stub
+		return bookingtempRepository.findAll();
+	}
 }

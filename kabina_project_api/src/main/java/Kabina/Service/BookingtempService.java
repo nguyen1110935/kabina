@@ -9,4 +9,5 @@ public interface BookingtempService {
 	List<Bookingtemp> findAll();
     void deleteById(Long id);
     Optional<Bookingtemp> findById (Long id);
+    List<Bookingtemp> getAllBookingtemp();
 }
