@@ -31,4 +31,6 @@ public interface BookingService {
 	long findMaxId();
 	
 	void insertNewBooking(long bookingId, long userId, String shelfId, String startDate, String endDate);
+
+	Map<String, Object> findReportData();
 }

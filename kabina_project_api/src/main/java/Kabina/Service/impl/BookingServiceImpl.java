@@ -244,4 +244,12 @@ public class BookingServiceImpl implements BookingService {
 		// TODO Auto-generated method stub
 		return bookingRepository.findUserBookingHistory(userId);
 	}
+
+	@Override
+	public Map<String, Object> findReportData() {
+		Map<String, Object> map= new TreeMap<String, Object>();
+		map.put("floor", getShelfDetailAllFloor());
+		map.put("unit", unitRepository.findAll());
+		return map;
+	}
 }

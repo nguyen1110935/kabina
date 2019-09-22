@@ -53,7 +53,7 @@ public interface BookingRepository extends CrudRepository<Booking, String>, JpaR
 	//Check user book in new range or not, for user cannot book 2 shelf in 1 day, return number booking user booking range input
 	@Query(
 			value = "select Count(*) from (select * from booking UNION select * from bookingtemp) as b where b.USERID=?1 " + 
-					"and (b.StartDate between ?2 and ?3 or b.EndDate between ?2 and ?3 or ?2 between b.startdate and end date or ?3 between between b.startdate and enddate)",
+					"and (b.StartDate between ?2 and ?3 or b.EndDate between ?2 and ?3 or ?2 between b.startdate and b.enddate or ?3 between b.startdate and b.enddate)",
 					nativeQuery = true
 			)
 	int  checkUserBook(Long userId, String startDate, String endDate);

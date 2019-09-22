@@ -31,7 +31,7 @@ public class Unit {
 	@Column(name = "leaderId")
 	private long leaderId;
 	
-	@JsonIgnore
+//	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 			  name = "floor_unit", 

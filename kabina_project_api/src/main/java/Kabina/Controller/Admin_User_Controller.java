@@ -21,6 +21,7 @@ import Kabina.Repository.FloorRepository;
 import Kabina.Repository.UnitRepository;
 import Kabina.Repository.UsersRepository;
 import Kabina.Service.BookingService;
+import Kabina.Service.UnitService;
 
 @RestController
 @RequestMapping(value = "/control")
@@ -33,6 +34,9 @@ public class Admin_User_Controller {
 	UnitRepository unitRepository;
 	
 	@Autowired
+	UnitService unitService;
+	
+	@Autowired
 	FloorRepository floorRepository;
 	
 	@Autowired
@@ -41,9 +45,19 @@ public class Admin_User_Controller {
 	@Autowired
 	UsersRepository usersRepository;
 	
+	@RequestMapping(value = "/admin/shelvesReport", method = RequestMethod.GET)
+	public Map<String, Object> findReportData(){
+		return bookingService.findReportData();
+	}
+	
 	@RequestMapping(value = "/findAllBookingDetailFromFloor", method = RequestMethod.GET)
 	public Map<Integer, Object> findAllBookingDetailFromFloor(){
 		return bookingService.getShelfDetailAllFloor();
+	}
+	
+	@RequestMapping(value = "/findAllUnit", method = RequestMethod.GET)
+	public List<Unit> findAllUnit(){
+		return unitService.findAll();
 	}
 	
 	@RequestMapping(value = "/findAllBookingDetailFromUnit", method = RequestMethod.GET)
