@@ -9,5 +9,6 @@ import Kabina.Model.Role;
 @Repository
 public interface RoleRepository extends CrudRepository<Role, String>, JpaRepository<Role, String> {
 	List<Role> findAll();
+	Role findByRoleId(long roleId);
 
 }
