@@ -11,4 +11,5 @@ public interface UserService {
 	public void deleteUser (Integer Id);
 	int checkUserExist(String userName);
 	Map<String, String> getUserProfile(long userId);
+	User findByUserName(String userName);
 }

@@ -19,8 +19,9 @@ import Kabina.Config.JwtTokenUtil;
 import Kabina.DTO.ApiResponse;
 import Kabina.DTO.JwtRequest;
 import Kabina.DTO.JwtResponse;
-import Kabina.DTO.SecurityUser;
 import Kabina.DTO.UserDTO;
+import Kabina.Model.User;
+import Kabina.Service.UserService;
 import Kabina.Service.impl.JwtUserDetailsService;
 
 
@@ -36,24 +37,21 @@ public class JwtAuthenticationController {
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
 
+//	@Autowired
+//	private JwtUserDetailsService userDetailsService;
+	
 	@Autowired
-	private JwtUserDetailsService userDetailsService;
+	private UserService userService;
 
 	@RequestMapping(value = "/auth", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
-			authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-			final SecurityUser userDetails = (SecurityUser) userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-			final String token = jwtTokenUtil.generateToken(userDetails);
-
-			return ResponseEntity.ok(new JwtResponse(token,userDetails.getRole(),userDetails.getId(),userDetails.getUsername()));
-	}
-
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
-
-		userDetailsService.save(user);
-		return ResponseEntity.ok(new ApiResponse("success", "saved"));
-
+			System.out.println(authenticationRequest.toString());	
+			final User user = userService.findByUserName(authenticationRequest.getUsername());
+			final String token = jwtTokenUtil.generateToken(user);
+//			authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+//			final SecurityUser userDetails = (SecurityUser) userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+//			return ResponseEntity.ok(new JwtResponse(token,userDetails.getRole(),userDetails.getId(),userDetails.getUsername()));
+			return ResponseEntity.ok(new JwtResponse(token, user.getUserId(), user.getUserName(), "", user.getShortName(), user.getFullName(), user.getPhone(), user.getEmail(), user.getRole(), user.getBusiness()));
 	}
 
 	private void authenticate(String username, String password) throws Exception {

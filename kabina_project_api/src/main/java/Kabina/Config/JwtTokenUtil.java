@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import Kabina.DTO.SecurityUser;
+import Kabina.Model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -55,11 +55,10 @@ public class JwtTokenUtil implements Serializable {
 	}
 
 	// generate token for user
-	public String generateToken(UserDetails userDetails) {
-		SecurityUser user = (SecurityUser) userDetails;
+	public String generateToken(User user) {
 		Map<String, Object> claims = new HashMap<>();
-		claims.put("role", user.getRole().toUpperCase());
-		return doGenerateToken(claims, userDetails.getUsername());
+		claims.put("role", user.getRole().getRoleName());
+		return doGenerateToken(claims, user.getUserName());
 	}
 	
 	//while creating the token -

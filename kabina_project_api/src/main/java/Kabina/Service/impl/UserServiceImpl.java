@@ -75,4 +75,10 @@ public class UserServiceImpl implements UserService {
 		return map;
 	}
 
+	@Override
+	public User findByUserName(String userName) {
+		// TODO Auto-generated method stub
+		return usersRepository.findByUserName(userName);
+	}
+
 }

@@ -51,8 +51,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 
 		httpSecurity.csrf().disable().authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/user/**").permitAll()
-				.antMatchers(HttpMethod.OPTIONS, "/admin/**").permitAll().antMatchers("/auth", "/register")
-				.permitAll().anyRequest().authenticated().and().exceptionHandling()
+				.antMatchers(HttpMethod.OPTIONS, "/admin/**").permitAll()
+				.antMatchers("/auth").permitAll()
+				.anyRequest().authenticated().and().exceptionHandling()
 				.authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		// Add a filter to validate the tokens with every request
