@@ -48,7 +48,7 @@ public class JwtAuthenticationController {
 			System.out.println(authenticationRequest.toString());	
 			final User user = userService.findByUserName(authenticationRequest.getUsername());
 			final String token = jwtTokenUtil.generateToken(user);
-//			authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+			authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 //			final SecurityUser userDetails = (SecurityUser) userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 //			return ResponseEntity.ok(new JwtResponse(token,userDetails.getRole(),userDetails.getId(),userDetails.getUsername()));
 			return ResponseEntity.ok(new JwtResponse(token, user.getUserId(), user.getUserName(), "", user.getShortName(), user.getFullName(), user.getPhone(), user.getEmail(), user.getRole(), user.getBusiness()));
