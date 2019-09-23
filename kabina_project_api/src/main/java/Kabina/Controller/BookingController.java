@@ -113,7 +113,7 @@ public class BookingController {
 	@RequestMapping(value = "/bookingtemp/{str}", method = RequestMethod.GET)
 	public List<Bookingtemp> getAllBookingTemp(@PathVariable String str) {
 		if (str.equals("new")) {
-			return bookingtempService.getAllBookingtemp();
+			return bookingtempRepository.getNewBooking();
 		}
 		else { 
 			if (str.equals("edit")){
