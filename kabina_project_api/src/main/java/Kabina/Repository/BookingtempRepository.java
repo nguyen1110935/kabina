@@ -38,7 +38,21 @@ public interface BookingtempRepository extends CrudRepository<Bookingtemp, Long>
 			value = "REPLACE into BookingTemp (bookingId, UserId, ShelfId, StartDate, EndDate, Expire) value (?1,?2,?3,?4,?5,false)",
 					nativeQuery = true
 			)
+	
 	Integer replaceBookingtemp(int bookingId, Long userId, String shelfId, String startDate, String endDate);
 	
 	void deleteById(Long id);
+	
+	// Nguyen
+	@Query(
+			value = "Select * From BookingTemp where BookingId not IN (SELECT BookingId FROM booking)",
+					nativeQuery = true
+			)
+	List<Bookingtemp> getNewBooking();
+	
+	@Query(
+			value = "Select * From BookingTemp where BookingId IN (SELECT BookingId FROM booking)",
+					nativeQuery = true
+			)
+	List<Bookingtemp> getUpdateBooking();
 }

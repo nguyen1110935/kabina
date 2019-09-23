@@ -1,9 +1,11 @@
 package Kabina.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import Kabina.Model.Booking;
+import Kabina.Model.Bookingtemp;
 
 
 public interface BookingService {
@@ -30,4 +32,7 @@ public interface BookingService {
 	Map<String, Object> findReportData();
 	
 	Booking addNewBooking(Booking booking);
+
+	Booking updateEditBooking(Booking booking);
+	
 }

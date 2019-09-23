@@ -1,5 +1,6 @@
 package Kabina.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -109,9 +110,19 @@ public class BookingController {
 	}
 	
 	
-	@RequestMapping(value = "/bookingtemp", method = RequestMethod.GET)
-	public List<Bookingtemp> getAllBookingTemp() {
-		return bookingtempService.getAllBookingtemp();
+	@RequestMapping(value = "/bookingtemp/{str}", method = RequestMethod.GET)
+	public List<Bookingtemp> getAllBookingTemp(@PathVariable String str) {
+		if (str.equals("new")) {
+			return bookingtempService.getAllBookingtemp();
+		}
+		else { 
+			if (str.equals("edit")){
+				return bookingtempRepository.getUpdateBooking();
+			}
+			else {
+				return new ArrayList<>();
+			}
+		}
 	}
 	
 	@RequestMapping(value = "/reject/{id}", method = RequestMethod.DELETE)
@@ -120,15 +131,21 @@ public class BookingController {
 		System.out.println("The booking including id= "+ id+ " is deleted");
 	}
 	
-	@RequestMapping(value = "/approve/{id}", method = RequestMethod.POST)
-	public void approve(@PathVariable Long id) {
+	@RequestMapping(value = "/approve/{id}/{isEdit}", method = RequestMethod.POST)
+	public void approve(@PathVariable Long id, boolean isEdit ) {
 		Optional<Bookingtemp> bookingtemp = bookingtempService.findById(id);
+		
 		System.out.println("The booking including id= "+ id+ " is detected.");
 		Bookingtemp bokiTemp = bookingtemp.get();
 		Booking booking = new Booking(bokiTemp.getBookingId(), bokiTemp.getUser(), bokiTemp.getShelf(),
 				bokiTemp.getStartDate(), bokiTemp.getEndDate(), bokiTemp.getExpire());
 		System.out.println(booking.toString());
-		bookingService.addNewBooking(booking);
+		if (isEdit) {
+			bookingService.updateEditBooking(booking);
+		}
+		else {
+			bookingService.addNewBooking(booking);
+		}
 		bookingtempService.deleteById(id);
 	}
 }

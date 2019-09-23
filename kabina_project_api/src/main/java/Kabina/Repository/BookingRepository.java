@@ -1,5 +1,6 @@
 package Kabina.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -10,6 +11,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import Kabina.Model.Booking;
+import Kabina.Model.Bookingtemp;
 
 @Repository
 public interface BookingRepository extends CrudRepository<Booking, String>, JpaRepository<Booking, String> {
@@ -57,6 +59,13 @@ public interface BookingRepository extends CrudRepository<Booking, String>, JpaR
 					nativeQuery = true
 			)
 	int  checkUserBook(Long userId, String startDate, String endDate);
+
+	@Query(
+			value = "UPDATE booking SET  startDate = ?2,  endDate = ?3 WHERE bookingId = ?1;",
+			nativeQuery = true
+		)
+	Booking updateEditBooking(long id, Date startDate, Date endDate, long expire);
+	
 	
 	
 
