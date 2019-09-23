@@ -91,11 +91,6 @@ public class BookingController {
 //		return BookingRepository.findMaxId();
 //	}
 	
-	@RequestMapping(value = "/admin/booking", method = RequestMethod.GET)
-	public Map<String, Object> findShelfAvailableAdmin(@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate){
-		
-		return shelfService.findShelfAvailableAdmin(startDate, endDate);
-	}
 	
 	@PostMapping("/admin/requesebooking")
 	@ResponseStatus(code=HttpStatus.CREATED)
@@ -148,4 +143,17 @@ public class BookingController {
 		}
 		bookingtempService.deleteById(id);
 	}
+	
+	@RequestMapping(value = "/users/BookingEdit", method = RequestMethod.GET)
+	public List<Booking> findUserBookingEdit(@RequestParam long userId){
+		return bookingService.findUserBookingEdit(userId);
+	}
+	
+	@RequestMapping(value = "/admin/booking", method = RequestMethod.GET)
+	public Map<String, Object> findShelfAvailableAdmin(@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate){
+		
+		return shelfService.findShelfAvailableAdmin(startDate, endDate);
+	}
+	
+
 }

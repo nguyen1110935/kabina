@@ -6,6 +6,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -67,6 +68,73 @@ public interface BookingRepository extends CrudRepository<Booking, String>, JpaR
 	Booking updateEditBooking(long id, Date startDate, Date endDate, long expire);
 	
 	
+	@Query(
+			value = "Select* From Booking where EndDate > CURDATE()  ORDER BY StartDate DESC",
+			nativeQuery = true
+		)
+	List<Booking> findAllBookingEdit();
+
+	
+	@Modifying
+	@Transactional
+	@Query(
+			value = "DELETE FROM Booking Where bookingId = ?1 AND StartDate > CURDATE()",nativeQuery = true)
+	int deleteById(long id);
+	
+	
+	
+	
+	
+	@Modifying
+	@Transactional
+	@Query(
+			value = "UPDATE Booking SET EndDate = CURDATE() where BookingId= ?1  AND StartDate <= CURDATE()",nativeQuery = true)
+	int updateEndDateAndExpire(long bookingId);
+
+
+
+	
+	@Query(
+			value = "Select* From Booking where EndDate > CURDATE() AND userId = ?1 ORDER BY StartDate DESC",
+			nativeQuery = true
+		)
+	List<Booking> findUserBookingEdit(long userId);
+
+
+	
+	
+	@Query(
+			value = "Select * From Booking where ShelfId= ? AND  StartDate BETWEEN (SELECT DATE_ADD(CURDATE(), INTERVAL - WEEKDAY(CURDATE()) DAY)) AND (SELECT DATE_ADD(CURDATE(), INTERVAL + 4 - WEEKDAY(CURDATE()) DAY))",
+			nativeQuery = true
+		)
+	List<Booking> getBookingByShelfId(String shelfId);
+
+
+	@Modifying
+	@Transactional
+	@Query(
+			value = "REPLACE INTO bookingtemp VALUES(?1,?2,?3,?4,?5,false)",
+			nativeQuery = true
+		)
+	int insertBookingTemp(String bookingId,String userId, String shelfId, String startDate, String endDate);
+
+
+	
+	@Modifying
+	@Transactional
+	@Query(
+			value = "UPDATE Booking SET StartDate = ?2,EndDate = ?3 where BookingId= ?1",
+			nativeQuery = true
+		)
+	int updateBooking(String bookingId, String startDate, String endDate);
+	
+	
+	//get booking history of the system, use in admin screen
+		@Query(
+				value = "Select* From Booking where EndDate <= CURDATE() ORDER BY StartDate DESC",
+				nativeQuery = true
+			)
+		List<Booking> findAllBookingHistory();
 	
 
 }

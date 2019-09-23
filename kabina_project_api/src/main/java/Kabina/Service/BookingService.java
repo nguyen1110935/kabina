@@ -33,6 +33,26 @@ public interface BookingService {
 	
 	Booking addNewBooking(Booking booking);
 
+
 	Booking updateEditBooking(Booking booking);
 	
+
+	List<Booking> findUserBookingEdit(long userId);
+	
+	int  checkUserBook(Long userId, String startDate, String endDate);
+	
+	List<Booking> findAllBookingHistory();
+
+	List<Booking> findAllBookingEdit();
+
+	int deleteBookingByBookingId(long bookingId);
+	
+	public Map<String, String[]> getBookingByShelfId(String shelfId);
+
+	int insertBookingTemp(String bookingId,String userId, String shelfId, String startDate, String endDate);
+
+	int updateEndDateAndExpire(long bookingId);
+
+	int updateBooking(String bookingId, String startDate, String endDate);
+
 }

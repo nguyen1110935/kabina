@@ -3,6 +3,7 @@ package Kabina.Service.impl;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -264,5 +265,87 @@ public class BookingServiceImpl implements BookingService {
 	public Booking updateEditBooking(Booking booking) {
 		// TODO Auto-generated method stub
 		return bookingRepository.updateEditBooking(booking.getBookingId(), booking.getStartDate(), booking.getEndDate(), booking.getExpire());
+
+
+	@Override
+	public List<Booking> findUserBookingEdit(long userId) {
+		return bookingRepository.findUserBookingEdit(userId);
+	}
+
+	@Override
+	public int checkUserBook(Long userId, String startDate, String endDate) {
+		return bookingRepository.checkUserBook(userId, startDate, endDate);
+	}
+
+	@Override
+	public Map<String, String[]> getBookingByShelfId(String shelfId) {
+		List<Booking> list = bookingRepository.getBookingByShelfId(shelfId);
+		
+		return parseDataToMap(list);
+		
+	}
+	
+	
+	public Map<String, String[]> parseDataToMap(List<Booking> booking){
+		Map<String, String[]> map = new TreeMap<String, String[]>();
+		SimpleDateFormat dt1 = new SimpleDateFormat("EEEE");
+		SimpleDateFormat dt2 = new SimpleDateFormat("yyyy-MM-dd");
+		
+		for (int i = 0; i < booking.size(); i++) {
+			if(booking.get(i).getStartDate()==null){
+				map.put(booking.get(i).getShelf().getShelfId(), new String[] {"","","","",""});
+			}
+			else if (!map.containsKey(booking.get(i).getShelf().getShelfId())) {
+				String[] strings=new String[] {"","","","",""};
+				map.put(booking.get(i).getShelf().getShelfId(), parseDatetoStringArray(strings, booking.get(i)));
+			}else {
+				String[] strings=map.get(booking.get(i).getShelf().getShelfId());
+				map.replace(booking.get(i).getShelf().getShelfId(), parseDatetoStringArray(strings, booking.get(i)));
+			}
+		}
+		return map;
+	}
+	
+	public String [] parseDatetoStringArray(String[]string,Booking booking ) {
+		Calendar calendar = Calendar.getInstance();
+        calendar.setTime(booking.getStartDate());
+        int start=calendar.get(Calendar.DAY_OF_WEEK);
+        calendar.setTime(booking.getEndDate());
+        int end=calendar.get(Calendar.DAY_OF_WEEK); 
+        for(int i=start-2; i<end-1; i++) {
+        	string[i]=String.valueOf(booking.getUser().getUserId());
+        }
+		return string;
+	}
+
+	@Override
+	public int insertBookingTemp(String bookingId,String userId, String shelfId, String startDate, String endDate) {
+		return bookingRepository.insertBookingTemp(bookingId,userId,shelfId,startDate,endDate);
+	}
+
+	@Override
+	public int updateEndDateAndExpire(long bookingId) {
+		return bookingRepository.updateEndDateAndExpire(bookingId);
+	}
+
+	@Override
+	public int updateBooking(String bookingId, String startDate, String endDate) {
+		return bookingRepository.updateBooking(bookingId,startDate,endDate);
+	}
+	
+	@Override
+	public List<Booking> findAllBookingHistory() {
+		return bookingRepository.findAllBookingHistory();
+	}
+
+	@Override
+	public List<Booking> findAllBookingEdit() {
+		return bookingRepository.findAllBookingEdit();
+	}
+
+	@Override
+	public int deleteBookingByBookingId(long bookingId) {
+		return bookingRepository.deleteById(bookingId);
+		
 	}
 }
