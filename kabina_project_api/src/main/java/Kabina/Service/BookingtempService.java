@@ -18,4 +18,6 @@ public interface BookingtempService {
 	Optional<Bookingtemp> findById (Long id);
 	
 	void deleteById(Long id);
+	
+	
 }
