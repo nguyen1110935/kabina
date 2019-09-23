@@ -266,7 +266,7 @@ public class BookingServiceImpl implements BookingService {
 		// TODO Auto-generated method stub
 		return bookingRepository.updateEditBooking(booking.getBookingId(), booking.getStartDate(), booking.getEndDate(), booking.getExpire());
 
-
+	}
 	@Override
 	public List<Booking> findUserBookingEdit(long userId) {
 		return bookingRepository.findUserBookingEdit(userId);
