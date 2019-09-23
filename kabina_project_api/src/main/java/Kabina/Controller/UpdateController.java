@@ -66,6 +66,15 @@ public class UpdateController {
 		 return bookingService.updateBooking(bookingId,startDate,endDate);
 	}
 	
+	@RequestMapping(value = "/getBookingByUserId", method = RequestMethod.POST)
+	public Map<Long, String[]> getBookingByUserId(
+			@RequestParam(value = "userId") Long userId,
+			@RequestParam(value = "bookingId") String bookingId
+			){
+		System.out.println(userId);
+		 return bookingService.getBookingByUserId(userId,bookingId);
+	}
+	
 
 	
 }

@@ -285,6 +285,14 @@ public class BookingServiceImpl implements BookingService {
 		
 	}
 	
+	@Override
+	public Map<Long, String[]> getBookingByUserId(Long userId,String bookingId) {
+		List<Booking> list = bookingRepository.getBookingByUserId(userId,bookingId);
+		
+		return parseDataToMapUser(list,userId);
+		
+	}
+	
 	
 	public Map<String, String[]> parseDataToMap(List<Booking> booking){
 		Map<String, String[]> map = new TreeMap<String, String[]>();
@@ -301,6 +309,27 @@ public class BookingServiceImpl implements BookingService {
 			}else {
 				String[] strings=map.get(booking.get(i).getShelf().getShelfId());
 				map.replace(booking.get(i).getShelf().getShelfId(), parseDatetoStringArray(strings, booking.get(i)));
+			}
+		}
+		return map;
+	}
+	
+	public Map<Long, String[]> parseDataToMapUser(List<Booking> booking,Long userId){
+		Map<Long, String[]> map = new TreeMap<Long, String[]>();
+		SimpleDateFormat dt1 = new SimpleDateFormat("EEEE");
+		SimpleDateFormat dt2 = new SimpleDateFormat("yyyy-MM-dd");
+		map.put(userId,  new String[] {"","","","",""});
+		
+		for (int i = 0; i < booking.size(); i++) {
+			if(booking.get(i).getStartDate()==null){
+				map.put(booking.get(i).getUser().getUserId(), new String[] {"","","","",""});
+			}
+			else if (!map.containsKey(booking.get(i).getUser().getUserId())) {
+				String[] strings=new String[] {"","","","",""};
+				map.put(booking.get(i).getUser().getUserId(), parseDatetoStringArray(strings, booking.get(i)));
+			}else {
+				String[] strings=map.get(booking.get(i).getUser().getUserId());
+				map.replace(booking.get(i).getUser().getUserId(), parseDatetoStringArray(strings, booking.get(i)));
 			}
 		}
 		return map;

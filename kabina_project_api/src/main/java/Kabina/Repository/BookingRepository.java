@@ -135,6 +135,13 @@ public interface BookingRepository extends CrudRepository<Booking, String>, JpaR
 				nativeQuery = true
 			)
 		List<Booking> findAllBookingHistory();
+		
+		
+		@Query(
+				value = "Select * From Booking where userId= ?1 AND bookingId != ?2 AND  StartDate BETWEEN (SELECT DATE_ADD(CURDATE(), INTERVAL - WEEKDAY(CURDATE()) DAY)) AND (SELECT DATE_ADD(CURDATE(), INTERVAL + 4 - WEEKDAY(CURDATE()) DAY))",
+				nativeQuery = true
+			)
+		List<Booking> getBookingByUserId(Long userId,String bookingId);
 	
 
 }

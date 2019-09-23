@@ -54,5 +54,7 @@ public interface BookingService {
 	int updateEndDateAndExpire(long bookingId);
 
 	int updateBooking(String bookingId, String startDate, String endDate);
+	
+	Map<Long, String[]> getBookingByUserId(Long userId,String bookingId);
 
 }
