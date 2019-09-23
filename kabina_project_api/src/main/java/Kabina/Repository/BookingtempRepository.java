@@ -11,7 +11,7 @@ import Kabina.Model.Booking;
 import Kabina.Model.Bookingtemp;
 
 @Repository
-public interface BookingtempRepository extends CrudRepository<Bookingtemp, String>, JpaRepository<Bookingtemp, String> {
+public interface BookingtempRepository extends CrudRepository<Bookingtemp, Long>, JpaRepository<Bookingtemp, Long> {
 	List<Bookingtemp> findAll();
 	
 	@Query(
@@ -40,5 +40,5 @@ public interface BookingtempRepository extends CrudRepository<Bookingtemp, Strin
 			)
 	Integer replaceBookingtemp(int bookingId, Long userId, String shelfId, String startDate, String endDate);
 	
-	
+	void deleteById(Long id);
 }

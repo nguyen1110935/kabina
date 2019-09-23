@@ -252,4 +252,11 @@ public class BookingServiceImpl implements BookingService {
 		map.put("unit", unitRepository.findAll());
 		return map;
 	}
+	
+	@Override
+	public Booking addNewBooking(Booking booking) {
+		// TODO Auto-generated method stub
+		return bookingRepository.save(booking);
+		
+	}
 }

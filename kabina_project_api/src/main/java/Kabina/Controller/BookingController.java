@@ -2,9 +2,11 @@ package Kabina.Controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -106,4 +108,27 @@ public class BookingController {
 		return bookingtempService.insertNewBooking(bookingId, userId, shelfId, startDate, endDate);
 	}
 	
+	
+	@RequestMapping(value = "/bookingtemp", method = RequestMethod.GET)
+	public List<Bookingtemp> getAllBookingTemp() {
+		return bookingtempService.getAllBookingtemp();
+	}
+	
+	@RequestMapping(value = "/reject/{id}", method = RequestMethod.DELETE)
+	public void rejectBooking(@PathVariable Long id) {
+		bookingtempService.deleteById(id);
+		System.out.println("The booking including id= "+ id+ " is deleted");
+	}
+	
+	@RequestMapping(value = "/approve/{id}", method = RequestMethod.POST)
+	public void approve(@PathVariable Long id) {
+		Optional<Bookingtemp> bookingtemp = bookingtempService.findById(id);
+		System.out.println("The booking including id= "+ id+ " is detected.");
+		Bookingtemp bokiTemp = bookingtemp.get();
+		Booking booking = new Booking(bokiTemp.getBookingId(), bokiTemp.getUser(), bokiTemp.getShelf(),
+				bokiTemp.getStartDate(), bokiTemp.getEndDate(), bokiTemp.getExpire());
+		System.out.println(booking.toString());
+		bookingService.addNewBooking(booking);
+		bookingtempService.deleteById(id);
+	}
 }

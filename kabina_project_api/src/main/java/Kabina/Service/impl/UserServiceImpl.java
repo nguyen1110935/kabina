@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
 		return usersRepository.findAll();
 	}
 
-	public void deleteUser(Integer Id) {
+	public void deleteUser(Long Id) {
 		usersRepository.deleteByUserId(Id);;
 	}
 
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		System.out.println(usr.getUserName() + " from url");
 		System.out.println(usr.getPhone() + " from url");
-		User user = usersRepository.findByUserId((int) usr.getUserId());
+		User user = usersRepository.findByUserId(usr.getUserId());
 		if (user != null) {
 			System.out.println(user.getUserName() + " from database");
 			System.out.println(user.getPhone() + " from database");

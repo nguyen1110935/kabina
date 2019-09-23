@@ -3,6 +3,7 @@ package Kabina.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -93,10 +94,13 @@ public class UsersController {
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 	
-	@RequestMapping(value = "/del/{Id}", method = RequestMethod.GET)
-	public void deleteUser(@PathVariable Integer Id) {
+	@Transactional
+	@RequestMapping(value = "/del/{Id}", method = RequestMethod.DELETE)
+	public void deleteUser(@PathVariable Long Id) {
 		usersService.deleteUser(Id);
 	}
+	
+	
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public List<Booking> get() {

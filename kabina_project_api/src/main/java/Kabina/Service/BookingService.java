@@ -1,15 +1,10 @@
 package Kabina.Service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import Kabina.Model.Booking;
-import Kabina.Model.Bookingtemp;
-import Kabina.Model.Shelf;
-import Kabina.Model.User;
+
 
 public interface BookingService {
 	List<Booking> findAll();
@@ -33,4 +28,6 @@ public interface BookingService {
 	void insertNewBooking(long bookingId, long userId, String shelfId, String startDate, String endDate);
 
 	Map<String, Object> findReportData();
+	
+	Booking addNewBooking(Booking booking);
 }
