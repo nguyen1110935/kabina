@@ -83,6 +83,13 @@ public class BookingController {
 		return bookingService.findUserBookingHistory(userId);
 	}
 	
+	@RequestMapping(value = "/users/BookingEdit", method = RequestMethod.GET)
+	public List<Booking> findUserBookingEdit(@RequestParam long userId){
+		return bookingService.findUserBookingEdit(userId);
+	}
+	
+	
+	
 //	@RequestMapping(value = "/users/test", method = RequestMethod.GET)
 //	public Long findShelfAvailableInRange(){
 //		return BookingRepository.findMaxId();
