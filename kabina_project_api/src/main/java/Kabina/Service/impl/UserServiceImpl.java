@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import Kabina.Model.User;
@@ -14,7 +15,10 @@ import Kabina.Service.UserService;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UsersRepository usersRepository;
-
+	
+	@Autowired
+	private PasswordEncoder bcryptEncoder;
+	
 	public Iterable<User> findAll() {
 		return usersRepository.findAll();
 	}
@@ -25,6 +29,7 @@ public class UserServiceImpl implements UserService {
 
 	public User addUser(User usr) {
 		// TODO Auto-generated method stub
+		usr.setPassword(bcryptEncoder.encode(usr.getPassword()));
 		usersRepository.save(usr);
 		return usr;
 	}
@@ -49,7 +54,7 @@ public class UserServiceImpl implements UserService {
 			System.out.println(user.getPhone() + " from database");
 			user.setEmail(usr.getEmail());
 			user.setPhone(usr.getPhone());
-			user.setPassword(usr.getPassword());
+			user.setPassword(bcryptEncoder.encode(usr.getPassword()));
 			user.setShortName(usr.getShortName());
 			user.setUserName(usr.getUserName());
 			user.setFullName(usr.getFullName());
